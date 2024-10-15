@@ -1,0 +1,55 @@
+@import url(./reset.css);
+
+.combobox-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding: 8px;
+  border-radius: 3px;
+}
+
+.combobox-label {
+  font-weight: bold;
+  font-size: 16px;
+  width: 100%;
+  text-align: left;
+  padding-bottom: 4px;
+}
+
+.combobox-container {
+  position: relative;
+  outline: 2px solid black;
+  height: 50px;
+  width: 300px;
+}
+
+.combobox-container::after {
+  top: 50%;
+  right: 0;
+  right: 5%;
+  width: 12px;
+  height: 12px;
+  content: "";
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  pointer-events: none !important;
+  border-right: 2px solid rgb(0 0 0 / 75%);
+  transform: translate(0, -65%) rotate(45deg);
+  border-bottom: 2px solid rgb(0 0 0 / 75%);
+}
+
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+
+.selected-combobox-option {
+  outline: 2px solid red;
+}
+
+.expanded-combobox {
+  outline: 2px solid red;
+}
