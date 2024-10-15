@@ -61,6 +61,12 @@
   overflow-y: auto;
 }
 
+.combobox-option-container:first-of-type {
+  margin-top: 8px;
+}
+.combobox-option-container:last-of-type {
+  margin-bottom: 8px;
+}
 .combobox-option-container {
   min-height: 30px;
   height: fit-content;

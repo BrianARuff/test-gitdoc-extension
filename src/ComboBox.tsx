@@ -206,7 +206,9 @@ export const Combobox = ({
             setIsOpen((prev) => !prev);
           }
         }}
-      />
+      >
+        <span>{selected?.label}</span>
+      </div>
       {createPortal(
         <div
           tabIndex={-1}
