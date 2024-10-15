@@ -2,7 +2,7 @@ import "./App.css";
 import { Combobox, ComboxBoxOption } from "./ComboBox";
 
 const options = [
-  "Choose a Fruit",
+  "Choose a Fruit Choose a Fruit Choose a Fruit Choose a Fruit",
   "Apple",
   "Banana",
   "Blueberry",

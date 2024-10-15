@@ -30,6 +30,12 @@
   left: 16px;
   top: 50%;
   transform: translate(0, -50%);
+  max-width: 80%;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .combobox-container {
