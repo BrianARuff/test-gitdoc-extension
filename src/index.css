@@ -57,10 +57,17 @@
   position: fixed;
   border: 1px solid black;
   width: 600px;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .combobox-option-container {
   height: 30px;
-  margin: 16px;
-  outline: 1px solid black;
+  margin: 10px 0px;
+  padding: 16px;
+  outline: 2px solid black;
+}
+
+.combobox-option-container:focus {
+  outline: 2px solid red;
 }
