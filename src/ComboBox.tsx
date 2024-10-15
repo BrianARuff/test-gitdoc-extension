@@ -59,7 +59,10 @@ export const Combobox = ({
   const [selectedOption, setSelectedOption] = useState<ComboxBoxOption | null>(
     null
   );
-  const [transform, setTransform] = useState<string>("");
+  const [listboxRect, setListboxRect] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
 
   const uid = useId();
   const comboboxId = `combobox__${uid}`;
@@ -76,11 +79,13 @@ export const Combobox = ({
         const buttonRect = comboboxRef.current.getBoundingClientRect();
         const listboxRect = listboxRef.current.getBoundingClientRect();
 
-        const translateY = buttonRect?.y + buttonRect.height + 8;
-        const translateX =
+        const y = buttonRect?.y + buttonRect.height + 8;
+        const x =
           buttonRect?.x + buttonRect?.width / 2 - listboxRect?.width / 2;
-
-        setTransform(`translate(${translateX}px, ${translateY}px)`);
+        setListboxRect({
+          x,
+          y,
+        });
       }
     };
 
@@ -94,11 +99,14 @@ export const Combobox = ({
       window.addEventListener("resize", updatePosition);
       window.addEventListener("keydown", updatePosition);
       window.addEventListener("pointermove", updatePosition);
-      window.addEventListener("mousemove", updatePosition);
+      window.addEventListener("scroll", updatePosition);
     }, 0);
 
     return () => {
       window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("keydown", updatePosition);
+      window.removeEventListener("pointermove", updatePosition);
+      window.removeEventListener("scroll", updatePosition);
     };
   }, [isOpen]);
 
@@ -210,15 +218,10 @@ export const Combobox = ({
           ref={listboxRef}
           id={`comboboxListbox__${uid}`}
           aria-labelledby={comboboxLabelId}
-          className={
-            isOpen && transform
-              ? "show combobox-listbox"
-              : "hide combobox-listbox"
-          }
+          className={isOpen ? "show combobox-listbox" : "hide combobox-listbox"}
           style={{
-            top: "0",
-            left: "0",
-            transform,
+            top: listboxRect.y + "px",
+            left: listboxRect.x + "px",
             minWidth: "200px",
           }}
         >
