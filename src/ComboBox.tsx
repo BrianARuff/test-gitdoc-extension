@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { createPortal } from "react-dom";
 
 export type ComboxBoxOption = {
   label: string;
@@ -57,6 +58,10 @@ export const Combobox = ({
   const comboboxId = `combobox__${uid}`;
   const comboboxLabelId = `comboboxLabel__${uid}`;
 
+  const portalRootElement = document.querySelector(
+    "#__portal__"
+  ) as HTMLElement;
+
   const RenderLabelSpan = useCallback(
     () =>
       renderLabelSpan?.({
@@ -99,7 +104,6 @@ export const Combobox = ({
   return (
     <div className="combobox-wrapper">
       <label htmlFor={comboboxId} className={"combobox-label"}>
-        <span>Hello Test Save Commit GitDoc</span>
         <RenderLabelSpan />
       </label>
       <div
@@ -126,19 +130,18 @@ export const Combobox = ({
           }
         }}
       />
-      <div
-        id={`comboboxListbox__${uid}`}
-        tabIndex={-1}
-        role="listbox"
-        aria-labelledby={comboboxLabelId}
-        className={
-          isOpen
-            ? "show combobox-listbox-container"
-            : "hide combobox-listbox-container"
-        }
-      >
-        <RenderListOptions />
-      </div>
+      {createPortal(
+        <div
+          id={`comboboxListbox__${uid}`}
+          tabIndex={-1}
+          role="listbox"
+          aria-labelledby={comboboxLabelId}
+          className={isOpen ? "show combobox-listbox" : "hide combobox-listbox"}
+        >
+          <RenderListOptions />
+        </div>,
+        portalRootElement!
+      )}
     </div>
   );
 };

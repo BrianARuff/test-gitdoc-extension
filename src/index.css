@@ -6,6 +6,7 @@
   width: fit-content;
   padding: 8px;
   border-radius: 3px;
+  position: relative;
 }
 
 .combobox-label {
@@ -57,4 +58,8 @@
 
 .expanded-combobox {
   outline: 2px solid red;
+}
+
+.combobox-listbox {
+  position: fixed;
 }
