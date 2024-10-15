@@ -90,6 +90,7 @@ export const Combobox = ({
 
     window.addEventListener("resize", updatePosition);
     window.addEventListener("keydown", updatePosition);
+    window.addEventListener("pointermove", updatePosition);
     window.addEventListener("mousemove", updatePosition);
 
     return () => {
