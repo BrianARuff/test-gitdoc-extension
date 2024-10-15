@@ -1,5 +1,13 @@
 @import url(./reset.css);
 
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 .combobox-wrapper {
   display: flex;
   flex-direction: column;
@@ -26,7 +34,7 @@
 
 .combobox-container:focus {
   outline: 2px solid blue;
-  box-shadow: 2px 2px 12px 6px rgba(0, 0, 0, 0.32);
+  box-shadow: 2px 2px 12px 2px rgba(0, 0, 0, 0.32);
 }
 
 .combobox-container::after {
@@ -47,11 +55,6 @@
 
 .combobox-listbox {
   position: fixed;
-}
-
-.hide {
-  display: none;
-}
-.show {
-  display: block;
+  border: 1px solid black;
+  width: 600px;
 }
