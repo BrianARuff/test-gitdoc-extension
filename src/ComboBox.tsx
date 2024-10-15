@@ -207,7 +207,7 @@ export const Combobox = ({
           }
         }}
       >
-        <span>{selected?.label}</span>
+        <span className="comobox-container-selected">{selected?.label}</span>
       </div>
       {createPortal(
         <div

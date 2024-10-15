@@ -25,11 +25,19 @@
   padding-bottom: 4px;
 }
 
+.comobox-container-selected {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
 .combobox-container {
   position: relative;
   outline: 2px solid black;
   height: 50px;
   width: 300px;
+  padding: 16px;
 }
 
 .combobox-container:focus {
@@ -40,7 +48,7 @@
 .combobox-container::after {
   top: 50%;
   right: 0;
-  right: 5%;
+  right: 16px;
   width: 12px;
   height: 12px;
   content: "";
