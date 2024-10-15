@@ -90,17 +90,13 @@ export const Combobox = ({
     };
 
     if (isOpen && comboboxRef.current && listboxRef.current) {
-      setTimeout(() => {
-        updatePosition();
-      }, 0);
+      updatePosition();
     }
 
-    setTimeout(() => {
-      window.addEventListener("resize", updatePosition);
-      window.addEventListener("keydown", updatePosition);
-      window.addEventListener("pointermove", updatePosition);
-      window.addEventListener("scroll", updatePosition);
-    }, 0);
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("keydown", updatePosition);
+    window.addEventListener("pointermove", updatePosition);
+    window.addEventListener("scroll", updatePosition);
 
     return () => {
       window.removeEventListener("resize", updatePosition);
