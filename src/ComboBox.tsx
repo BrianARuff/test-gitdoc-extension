@@ -126,7 +126,7 @@ export const Combobox = ({
         }}
       />
       <div
-        id="listbox1"
+        id={`combobox-listbox__${uid}`}
         tabIndex={-1}
         role="listbox"
         aria-labelledby={comboboxLabelId}
