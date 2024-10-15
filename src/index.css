@@ -23,6 +23,11 @@
   width: 300px;
 }
 
+.combobox-container:focus {
+  outline: 2px solid blue;
+  box-shadow: 2px 2px 12px 6px rgba(0, 0, 0, 0.32);
+}
+
 .combobox-container::after {
   top: 50%;
   right: 0;

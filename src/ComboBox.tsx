@@ -99,6 +99,7 @@ export const Combobox = ({
   return (
     <div className="combobox-wrapper">
       <label htmlFor={comboboxId} className={"combobox-label"}>
+        <span>Hello Test Save Commit GitDoc</span>
         <RenderLabelSpan />
       </label>
       <div
