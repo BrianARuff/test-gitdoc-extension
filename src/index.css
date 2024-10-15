@@ -30,7 +30,7 @@
   left: 16px;
   top: 50%;
   transform: translate(0, -50%);
-  max-width: 80%;
+  max-width: calc(100% - 28px);
   text-overflow: ellipsis;
   text-wrap: nowrap;
   word-wrap: break-word;
