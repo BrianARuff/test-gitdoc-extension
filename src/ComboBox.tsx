@@ -126,13 +126,17 @@ export const Combobox = ({
         }}
       />
       <div
-        id={`combobox-listbox__${uid}`}
+        id={`comboboxListbox__${uid}`}
         tabIndex={-1}
         role="listbox"
         aria-labelledby={comboboxLabelId}
-        className={isOpen ? "show" : "hide"}
+        className={
+          isOpen
+            ? "show combobox-listbox-container"
+            : "hide combobox-listbox-container"
+        }
       >
-        <div role="option" id={`combobox-option-index`} aria-selected={false}>
+        <div role="option" id={`comboboxOption-${uid}`} aria-selected={false}>
           <RenderListOptions />
         </div>
       </div>
