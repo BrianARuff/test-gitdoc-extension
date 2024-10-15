@@ -122,7 +122,11 @@ function App() {
           return "Favorite Fruit";
         }}
         renderListOption={(props) => {
-          return <p>{props?.option?.label}</p>;
+          return (
+            <p style={{ width: "100%", height: "100%" }}>
+              {props?.option?.label}
+            </p>
+          );
         }}
         options={formattedOptions}
       />

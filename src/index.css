@@ -62,12 +62,16 @@
 }
 
 .combobox-option-container {
-  height: 30px;
-  margin: 10px 0px;
-  padding: 16px;
-  outline: 2px solid black;
+  min-height: 30px;
+  height: fit-content;
+  padding: 8px;
+  border-bottom: 1px solid black;
+}
+
+.combobox-option-container:hover {
+  border-bottom: 2px solid red;
 }
 
 .combobox-option-container:focus {
-  outline: 2px solid red;
+  border-bottom: 2px solid red;
 }
