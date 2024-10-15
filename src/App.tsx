@@ -45,6 +45,9 @@ function App() {
         renderLabelSpan={() => {
           return "Favorite Fruit";
         }}
+        renderListOption={(props) => {
+          return <p>{props?.option?.label}</p>;
+        }}
         options={formattedOptions}
       />
     </div>
