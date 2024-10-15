@@ -51,14 +51,8 @@ export const Combobox = ({
   const comboboxRef = useRef<HTMLDivElement>(null);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<{
-    value: string;
-    label: string;
-    index: number;
-  }>(options?.[0] || {});
-  const [selectedOption, setSelectedOption] = useState<ComboxBoxOption | null>(
-    null
-  );
+  const [selected, setSelected] = useState<ComboxBoxOption>(options[0] || {});
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
   const [listboxRect, setListboxRect] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
@@ -112,7 +106,8 @@ export const Combobox = ({
       if (
         comboWrapperRef?.current &&
         e.target instanceof Node &&
-        !comboWrapperRef.current.contains(e.target)
+        !comboWrapperRef.current.contains(e.target) &&
+        portalRootElement?.contains(e.target)
       ) {
         setIsOpen(false);
       }
@@ -123,19 +118,71 @@ export const Combobox = ({
     return () => {
       window.removeEventListener("click", handleClickOutside);
     };
-  }, [isOpen]);
-
-  useEffect(() => {
-    console.log("selectedOption value is => ", selectedOption);
-  }, [selectedOption]);
+  }, [isOpen, portalRootElement]);
 
   const handleSelect = (option: ComboxBoxOption) => {
     setIsOpen(false);
-    setSelectedOption(option);
+    setSelected(option);
+    setFocusedIndex(option.index);
   };
 
   const handleOnPointerDown = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  const scrollIntoView = (index: number) => {
+    const element = document.getElementById(`comboboxOption__${index}`);
+    if (element) {
+      element.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (
+      (e.key === "Enter" ||
+        e.key === " " ||
+        e.key === "ArrowDown" ||
+        e.key === "ArrowUp") &&
+      !e.altKey
+    ) {
+      if (!isOpen) {
+        setIsOpen(true);
+        setFocusedIndex(0);
+        e.preventDefault();
+      } else {
+        if (e.key === "Enter" || e.key === " ") {
+          if (focusedIndex >= 0) {
+            handleSelect(options[focusedIndex]);
+          }
+          setIsOpen(false);
+          e.preventDefault();
+        } else if (e.key === "ArrowDown") {
+          setFocusedIndex((prevIndex) => {
+            const newIndex =
+              prevIndex < options.length - 1 ? prevIndex + 1 : prevIndex;
+            scrollIntoView(newIndex);
+            return newIndex;
+          });
+          e.preventDefault();
+        } else if (e.key === "ArrowUp") {
+          setFocusedIndex((prevIndex) => {
+            const newIndex = prevIndex > 0 ? prevIndex - 1 : prevIndex;
+            scrollIntoView(newIndex);
+            return newIndex;
+          });
+          e.preventDefault();
+        }
+      }
+    } else if (e.key === "Escape") {
+      setIsOpen(false);
+      e.preventDefault();
+    } else if (e.key === "ArrowUp" && e.altKey) {
+      if (focusedIndex >= 0) {
+        handleSelect(options[focusedIndex]);
+      }
+      setIsOpen(false);
+      e.preventDefault();
+    }
   };
 
   const RenderLabelSpan = useCallback(
@@ -156,14 +203,17 @@ export const Combobox = ({
 
       return (
         <div
-          className="combobox-option-container"
+          className={`combobox-option-container ${
+            focusedIndex === index ? "focused" : ""
+          } ${selected.value === option.value ? "selected" : ""}`}
           role="option"
           id={optionId}
           key={`${optionId}Key`}
-          aria-selected={false}
+          aria-selected={selected.value === option.value}
           onClick={() => {
             handleSelect(option);
           }}
+          tabIndex={-1}
         >
           {renderListOption?.({
             comboboxRef,
@@ -178,7 +228,15 @@ export const Combobox = ({
     });
 
     return optionsRenderContent;
-  }, [isOpen, selected, options, setIsOpen, setSelected, renderListOption]);
+  }, [
+    isOpen,
+    selected,
+    options,
+    setIsOpen,
+    setSelected,
+    renderListOption,
+    focusedIndex,
+  ]);
 
   return (
     <div ref={comboWrapperRef} className="combobox-wrapper">
@@ -196,16 +254,12 @@ export const Combobox = ({
         className="combobox-container"
         tabIndex={0}
         onPointerDown={handleOnPointerDown}
-        onKeyDown={(e) => {
-          if (
-            e.key === "Enter" ||
-            e.key === " " ||
-            e.key === "ArrowDown" ||
-            e.key === "ArrowUp"
-          ) {
-            setIsOpen((prev) => !prev);
+        onBlur={() => {
+          if (isOpen) {
+            setIsOpen(false);
           }
         }}
+        onKeyDown={handleKeyDown}
       >
         <span className="comobox-container-selected">{selected?.label}</span>
       </div>
