@@ -59,10 +59,7 @@ export const Combobox = ({
   const [selectedOption, setSelectedOption] = useState<ComboxBoxOption | null>(
     null
   );
-  const [listboxRect, setListboxRect] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  });
+  const [transform, setTransform] = useState<string>("");
 
   const uid = useId();
   const comboboxId = `combobox__${uid}`;
@@ -79,13 +76,11 @@ export const Combobox = ({
         const buttonRect = comboboxRef.current.getBoundingClientRect();
         const listboxRect = listboxRef.current.getBoundingClientRect();
 
-        const y = buttonRect?.y + buttonRect.height + 8;
-        const x =
+        const translateY = buttonRect?.y + buttonRect.height + 8;
+        const translateX =
           buttonRect?.x + buttonRect?.width / 2 - listboxRect?.width / 2;
-        setListboxRect({
-          x,
-          y,
-        });
+
+        setTransform(`translate(${translateX}px, ${translateY}px)`);
       }
     };
 
@@ -215,10 +210,15 @@ export const Combobox = ({
           ref={listboxRef}
           id={`comboboxListbox__${uid}`}
           aria-labelledby={comboboxLabelId}
-          className={isOpen ? "show combobox-listbox" : "hide combobox-listbox"}
+          className={
+            isOpen && transform
+              ? "show combobox-listbox"
+              : "hide combobox-listbox"
+          }
           style={{
-            top: listboxRect.y + "px",
-            left: listboxRect.x + "px",
+            top: "0",
+            left: "0",
+            transform,
             minWidth: "200px",
           }}
         >
