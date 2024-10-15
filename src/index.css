@@ -58,3 +58,9 @@
   border: 1px solid black;
   width: 600px;
 }
+
+.combobox-option-container {
+  height: 30px;
+  margin: 16px;
+  outline: 1px solid black;
+}
