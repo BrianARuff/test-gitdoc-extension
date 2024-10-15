@@ -55,7 +55,7 @@ export const Combobox = ({
 
   const uid = useId();
   const comboboxId = `combobox__${uid}`;
-  const comboboxLabelId = `combobox-label__${uid}`;
+  const comboboxLabelId = `comboboxLabel__${uid}`;
 
   const RenderLabelSpan = useCallback(
     () =>
@@ -71,7 +71,7 @@ export const Combobox = ({
 
   const RenderListOptions = useCallback(() => {
     const optionsRenderContent = options?.map((option, index) => {
-      const optionId = `combobox-option-${index}`;
+      const optionId = `comboboxOption__${index}`;
 
       return (
         <div
@@ -136,9 +136,7 @@ export const Combobox = ({
             : "hide combobox-listbox-container"
         }
       >
-        <div role="option" id={`comboboxOption-${uid}`} aria-selected={false}>
-          <RenderListOptions />
-        </div>
+        <RenderListOptions />
       </div>
     </div>
   );
